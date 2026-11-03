@@ -1,0 +1,34 @@
+[
+  {
+    "name": "hero",
+    "unsplashId": "photo-1758270704925-fa59d93119c1",
+    "page": "https://unsplash.com/photos/teacher-lecturing-students-in-a-classroom-setting-14jNrPntbgk",
+    "author": "Vitaly Gariev",
+    "widths": [700, 1100, 1600],
+    "fallbackWidth": 1100
+  },
+  {
+    "name": "aula",
+    "unsplashId": "photo-1758270704851-adff797a2010",
+    "page": "https://unsplash.com/photos/professor-lecturing-to-students-in-a-classroom-setting-vyuiyIyboc0",
+    "author": "Vitaly Gariev",
+    "widths": [900, 1600, 2400],
+    "fallbackWidth": 1600
+  },
+  {
+    "name": "estacion",
+    "unsplashId": "photo-1592579616011-1c5890128a7d",
+    "page": "https://unsplash.com/photos/people-in-train-station-during-daytime-_N1N9OCB9nA",
+    "author": "Simon Tartarotti",
+    "widths": [600, 900, 1300],
+    "fallbackWidth": 900
+  },
+  {
+    "name": "equipo",
+    "unsplashId": "photo-1521737604893-d14cc237f11d",
+    "page": "https://unsplash.com/photos/sittin-people-beside-table-inside-room-hCb3lIB8L8E",
+    "author": "Annie Spratt",
+    "widths": [600, 900, 1300],
+    "fallbackWidth": 900
+  }
+]

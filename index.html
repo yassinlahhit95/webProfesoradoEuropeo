@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduEurope | Formación para profesorado</title>
+<meta name="description" content="Cursos para docentes en Europa: metodologías activas, Erasmus+, competencia digital, inclusión y liderazgo. Online y presencial.">
+<meta property="og:title" content="EduEurope | Formación para profesorado">
+<meta property="og:description" content="Cursos para docentes en Europa, online y presenciales, con certificado.">
+<meta name="theme-color" content="#1d4ed8">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" as="image" type="image/avif"
+      imagesrcset="/img/hero-700.avif 700w, /img/hero-1100.avif 1100w, /img/hero-1600.avif 1600w"
+      imagesizes="(min-width: 860px) 55vw, 100vw">
+<script type="module" src="/src/main.js"></script>
+
+<!-- Datos estructurados para Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "EduEurope",
+  "description": "Formación para profesorado en Europa, online y presencial.",
+  "email": "info@edueurope.example",
+  "address": { "@type": "PostalAddress", "addressRegion": "Bizkaia", "addressCountry": "ES" }
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<!-- ================= NAVEGACIÓN ================= -->
+<nav class="nav" aria-label="Principal">
+    <div class="wrap nav-inner">
+        <a href="#inicio" class="logo" aria-label="EduEurope, inicio">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            EduEurope
+        </a>
+
+        <div class="nav-links">
+            <a href="#programas">Programas</a>
+            <a href="#erasmus">Erasmus+</a>
+            <a href="#eventos">Eventos</a>
+            <a href="#sobre-nosotros">Sobre nosotros</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+
+        <div class="nav-actions">
+            <form class="search" role="search" action="#programas">
+                <label for="q" class="sr-only">Buscar cursos</label>
+                <input id="q" class="search-input" type="search" placeholder="Buscar cursos">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg>
+            </form>
+            <a href="#login" class="login">Acceder</a>
+        </div>
+
+        <button class="menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="i-open" d="M4 7h16M4 12h16M4 17h16"/><path class="i-close" d="M6 6l12 12M18 6L6 18" style="display:none"/></svg>
+        </button>
+    </div>
+
+    <div id="mobile-menu" class="mobile-menu" hidden>
+        <form class="search" role="search" action="#programas">
+            <label for="q-m" class="sr-only">Buscar cursos</label>
+            <input id="q-m" class="search-input" type="search" placeholder="Buscar cursos">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg>
+        </form>
+        <a href="#programas">Programas</a>
+        <a href="#erasmus">Erasmus+</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#sobre-nosotros">Sobre nosotros</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#login">Acceder</a>
+    </div>
+</nav>
+
+<main id="contenido">
+
+<!-- ================= HERO ================= -->
+<header id="inicio" class="hero">
+    <div class="hero-text">
+        <h1>Formación innovadora sin fronteras</h1>
+        <p class="hero-lead">Cursos para docentes de toda Europa, online o presenciales, pensados para llevarlos al aula al día siguiente.</p>
+        <div class="hero-cta">
+            <a href="#programas" class="btn btn-primary">Ver los cursos</a>
+            <a href="#erasmus" class="btn btn-secondary">Financiar con Erasmus+</a>
+        </div>
+        <p class="hero-note">Inscripciones abiertas para el curso 2026–2027.</p>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+        <div class="shape-dark"></div>
+        <div class="shape-light"></div>
+        <div class="shape-photo">
+        <picture>
+            <source type="image/avif" srcset="/img/hero-700.avif 700w, /img/hero-1100.avif 1100w, /img/hero-1600.avif 1600w" sizes="(min-width: 860px) 55vw, 100vw">
+            <source type="image/webp" srcset="/img/hero-700.webp 700w, /img/hero-1100.webp 1100w, /img/hero-1600.webp 1600w" sizes="(min-width: 860px) 55vw, 100vw">
+            <img src="/img/hero-1100.jpg" alt="" width="1600" height="1067" fetchpriority="high">
+        </picture>
+        </div>
+        <div class="shape-orange"></div>
+    </div>
+</header>
+
+<!-- ================= PROGRAMAS ================= -->
+<section id="programas" class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Cursos 2026–2027</h2>
+            <p>Seis programas con certificado. Los presenciales pueden financiarse con una movilidad Erasmus+.</p>
+        </div>
+
+        <div class="catalog-tools" role="group" aria-label="Filtrar por modalidad">
+            <button class="chip" data-filter="todos" aria-pressed="true">Todos</button>
+            <button class="chip" data-filter="online" aria-pressed="false">Online</button>
+            <button class="chip" data-filter="presencial" aria-pressed="false">Presencial</button>
+        </div>
+
+        <div class="catalog">
+            <div class="catalog-head" aria-hidden="true">
+                <span>Curso</span><span>Modalidad</span><span>Horas</span><span>Próximo inicio</span>
+            </div>
+
+            <article class="course" data-mode="online">
+                <div>
+                    <h3><a href="#contacto">Metodologías ágiles en el aula</a></h3>
+                    <p class="course-desc">Scrum y Kanban adaptados a proyectos de clase, con plantillas listas para usar.</p>
+                </div>
+                <dl class="course-meta">
+                    <dt>Modalidad</dt><dd class="mode online">Online</dd>
+                    <dt>Horas</dt><dd>40 h</dd>
+                    <dt>Próximo inicio</dt><dd>16 de noviembre</dd>
+                </dl>
+            </article>
+
+            <article class="course" data-mode="presencial">
+                <div>
+                    <h3><a href="#contacto">Diseño y gestión de proyectos Erasmus+</a></h3>
+                    <p class="course-desc">De la idea a la solicitud: socios, presupuesto, movilidades y justificación final.</p>
+                </div>
+                <dl class="course-meta">
+                    <dt>Modalidad</dt><dd class="mode presencial">Presencial</dd>
+                    <dt>Horas</dt><dd>30 h</dd>
+                    <dt>Próximo inicio</dt><dd>12 de diciembre</dd>
+                </dl>
+            </article>
+
+            <article class="course" data-mode="online">
+                <div>
+                    <h3><a href="#contacto">Competencia digital e IA</a></h3>
+                    <p class="course-desc">Herramientas digitales e inteligencia artificial para preparar clases, evaluar y personalizar.</p>
+                </div>
+                <dl class="course-meta">
+                    <dt>Modalidad</dt><dd class="mode online">Online</dd>
+                    <dt>Horas</dt><dd>50 h</dd>
+                    <dt>Próximo inicio</dt><dd>11 de enero</dd>
+                </dl>
+            </article>
+
+            <article class="course" data-mode="presencial">
+                <div>
+                    <h3><a href="#contacto">Inclusión y Diseño Universal para el Aprendizaje</a></h3>
+                    <p class="course-desc">Cómo planificar una sola clase que funcione para todo el alumnado.</p>
+                </div>
+                <dl class="course-meta">
+                    <dt>Modalidad</dt><dd class="mode presencial">Presencial</dd>
+                    <dt>Horas</dt><dd>25 h</dd>
+                    <dt>Próximo inicio</dt><dd>25 de enero</dd>
+                </dl>
+            </article>
+
+            <article class="course" data-mode="online">
+                <div>
+                    <h3><a href="#contacto">Gamificación</a></h3>
+                    <p class="course-desc">Retos, niveles y recompensas que mejoran la participación sin convertir la clase en un concurso.</p>
+                </div>
+                <dl class="course-meta">
+                    <dt>Modalidad</dt><dd class="mode online">Online</dd>
+                    <dt>Horas</dt><dd>20 h</dd>
+                    <dt>Próximo inicio</dt><dd>8 de febrero</dd>
+                </dl>
+            </article>
+
+            <article class="course" data-mode="presencial">
+                <div>
+                    <h3><a href="#contacto">Liderazgo y coordinación de equipos docentes</a></h3>
+                    <p class="course-desc">Para jefaturas de departamento y equipos directivos que impulsan cambios en su centro.</p>
+                </div>
+                <dl class="course-meta">
+                    <dt>Modalidad</dt><dd class="mode presencial">Presencial</dd>
+                    <dt>Horas</dt><dd>35 h</dd>
+                    <dt>Próximo inicio</dt><dd>1 de marzo</dd>
+                </dl>
+            </article>
+
+            <p class="course empty" hidden>No hay cursos que coincidan con tu búsqueda. Prueba con otra palabra o <a href="#contacto">escríbenos</a>.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= FRANJA ================= -->
+<section class="band" aria-label="Nuestra misión">
+    <div class="wrap">
+        <blockquote>Formamos a los líderes del mañana capacitando al profesorado de hoy.</blockquote>
+        <p>Más de 10.000 docentes de centros europeos han pasado por nuestros cursos.</p>
+    </div>
+</section>
+
+<!-- ================= ERASMUS+ ================= -->
+<section id="erasmus" class="section">
+    <div class="wrap">
+        <div class="erasmus-intro">
+            <div class="section-head">
+                <h2>Tu curso, financiado con Erasmus+</h2>
+                <p>Nuestros cursos presenciales pueden formar parte de una movilidad de personal (KA1). Viajas a otro país europeo, te formas con docentes de otros centros y vuelves con ideas para tu aula. Así es el proceso.</p>
+            </div>
+            <figure>
+                <picture>
+            <source type="image/avif" srcset="/img/estacion-600.avif 600w, /img/estacion-900.avif 900w, /img/estacion-1300.avif 1300w" sizes="(min-width: 860px) 45vw, 100vw">
+            <source type="image/webp" srcset="/img/estacion-600.webp 600w, /img/estacion-900.webp 900w, /img/estacion-1300.webp 1300w" sizes="(min-width: 860px) 45vw, 100vw">
+            <img src="/img/estacion-900.jpg" alt="Viajeros en el andén de una estación de tren europea" width="1600" height="1067" loading="lazy" decoding="async">
+        </picture>
+            </figure>
+        </div>
+        <ol class="steps">
+            <li>
+                <h3>Elige el curso</h3>
+                <p>Te enviamos el programa detallado para incluirlo en el plan de tu centro.</p>
+            </li>
+            <li>
+                <h3>Solicita la movilidad</h3>
+                <p>Tu centro la pide a su agencia nacional. Te ayudamos con la parte del curso.</p>
+            </li>
+            <li>
+                <h3>Asiste</h3>
+                <p>Una o dos semanas de formación práctica con docentes de otros países.</p>
+            </li>
+            <li>
+                <h3>Recibe el certificado</h3>
+                <p>Certificado de asistencia y Europass Movilidad para justificar la estancia.</p>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<!-- ================= EVENTOS ================= -->
+<section id="eventos" class="section events-bg">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Próximos eventos</h2>
+            <p>Sesiones abiertas y gratuitas para conocer a los formadores antes de inscribirte.</p>
+        </div>
+        <ul class="events">
+            <li class="event">
+                <time datetime="2026-11-18"><b>18</b><span>noviembre</span></time>
+                <div>
+                    <h3>IA generativa en la evaluación</h3>
+                    <p class="event-where">Webinar, 17:00–18:30</p>
+                </div>
+                <p class="event-where">Online</p>
+                <a href="#contacto">Apuntarme</a>
+            </li>
+            <li class="event">
+                <time datetime="2026-12-12"><b>12</b><span>diciembre</span></time>
+                <div>
+                    <h3>Prepara tu solicitud Erasmus+</h3>
+                    <p class="event-where">Taller práctico, 9:30–14:00</p>
+                </div>
+                <p class="event-where">Bilbao</p>
+                <a href="#contacto">Apuntarme</a>
+            </li>
+            <li class="event">
+                <time datetime="2027-01-22"><b>22</b><span>enero</span></time>
+                <div>
+                    <h3>Encuentro europeo de docentes</h3>
+                    <p class="event-where">Ponencias y talleres, 22 y 23 de enero</p>
+                </div>
+                <p class="event-where">Lisboa</p>
+                <a href="#contacto">Apuntarme</a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- ================= SOBRE NOSOTROS ================= -->
+<section id="sobre-nosotros" class="section">
+    <div class="wrap about">
+        <picture>
+            <source type="image/avif" srcset="/img/equipo-600.avif 600w, /img/equipo-900.avif 900w, /img/equipo-1300.avif 1300w" sizes="(min-width: 860px) 42vw, 100vw">
+            <source type="image/webp" srcset="/img/equipo-600.webp 600w, /img/equipo-900.webp 900w, /img/equipo-1300.webp 1300w" sizes="(min-width: 860px) 42vw, 100vw">
+            <img src="/img/equipo-900.jpg" alt="Un equipo trabajando junto alrededor de una mesa" width="1600" height="1067" loading="lazy" decoding="async">
+        </picture>
+        <div class="about-text">
+            <h2>Docentes que forman a docentes</h2>
+            <p>Todos nuestros formadores dan clase o dirigen un centro. Enseñamos lo que nos ha funcionado en el aula, no teoría.</p>
+            <p>Trabajamos con centros de toda Europa, lo que nos permite organizar cursos con participantes de varios países y ayudar a tu centro a encontrar socios para sus proyectos.</p>
+            <ul class="about-list">
+                <li><strong>Grupos reducidos</strong>, de 20 personas como máximo.</li>
+                <li><strong>Materiales reutilizables</strong> que te llevas al terminar.</li>
+                <li><strong>Contenidos alineados con DigCompEdu</strong>, el marco europeo de competencia digital docente.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" class="section faq-section">
+    <div class="wrap faq-grid">
+        <div class="section-head">
+            <h2>Preguntas frecuentes</h2>
+            <p>¿No encuentras tu respuesta? <a href="#contacto">Escríbenos</a>.</p>
+        </div>
+        <div class="faq">
+            <details>
+                <summary>¿Quién puede inscribirse?</summary>
+                <p>Docentes de cualquier etapa (Infantil, Primaria, Secundaria, FP y universidad), equipos directivos y personal de orientación.</p>
+            </details>
+            <details>
+                <summary>¿Los cursos dan certificado?</summary>
+                <p>Sí. Al terminar recibes un certificado con las horas y los contenidos trabajados.</p>
+            </details>
+            <details>
+                <summary>¿Puedo financiar el curso con Erasmus+?</summary>
+                <p>Los cursos presenciales pueden incluirse en una movilidad de personal Erasmus+. Tu centro hace la solicitud y nosotros te damos la documentación del curso.</p>
+            </details>
+            <details>
+                <summary>¿En qué idioma son?</summary>
+                <p>La mayoría en español o en inglés. El idioma de cada curso aparece en su programa.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- ================= CONTACTO ================= -->
+<section id="contacto" class="section contact">
+    <div class="wrap contact-grid">
+        <div class="contact-info">
+            <h2>Pide información</h2>
+            <p>Te enviamos el programa del curso, las fechas y el precio. Respondemos en dos días laborables.</p>
+            <address>
+                <a href="mailto:info@edueurope.example">info@edueurope.example</a><br>
+                Bizkaia, España
+            </address>
+        </div>
+
+        <form id="contact-form" name="contacto" method="POST" data-netlify="true" netlify-honeypot="empresa" novalidate>
+            <input type="hidden" name="form-name" value="contacto">
+            <p class="hp" aria-hidden="true"><label>No rellenar: <input name="empresa" tabindex="-1" autocomplete="off"></label></p>
+            <div class="field-row">
+                <div class="field">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" name="nombre" type="text" required autocomplete="name">
+                </div>
+                <div class="field">
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" name="email" type="email" required autocomplete="email">
+                </div>
+            </div>
+            <div class="field">
+                <label for="curso">Curso</label>
+                <select id="curso" name="curso">
+                    <option>Metodologías ágiles en el aula</option>
+                    <option>Diseño y gestión de proyectos Erasmus+</option>
+                    <option>Competencia digital e IA</option>
+                    <option>Inclusión y Diseño Universal para el Aprendizaje</option>
+                    <option>Gamificación</option>
+                    <option>Liderazgo y coordinación de equipos docentes</option>
+                    <option>Todavía no lo sé</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="mensaje">Mensaje (opcional)</label>
+                <textarea id="mensaje" name="mensaje"></textarea>
+            </div>
+            <label class="check">
+                <input type="checkbox" id="privacidad" name="privacidad" value="si" required>
+                <span>He leído y acepto la <a href="#">política de privacidad</a>.</span>
+            </label>
+            <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+            <p class="form-msg" role="status" aria-live="polite"></p>
+        </form>
+    </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div class="wrap">
+        <div class="footer-grid">
+            <div>
+                <a href="#inicio" class="logo">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    EduEurope
+                </a>
+                <p class="footer-tagline">Formación para el profesorado europeo.</p>
+            </div>
+            <div>
+                <h2>Cursos</h2>
+                <ul>
+                    <li><a href="#programas">Catálogo</a></li>
+                    <li><a href="#erasmus">Erasmus+</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>EduEurope</h2>
+                <ul>
+                    <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
+                    <li><a href="#faq">Preguntas frecuentes</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Síguenos</h2>
+                <ul>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span data-year>2026</span> EduEurope</p>
+            <ul>
+                <li><a href="#">Aviso legal</a></li>
+                <li><a href="#">Privacidad</a></li>
+                <li><a href="#">Cookies</a></li>
+            </ul>
+        </div>
+        <p class="credits">Fotos de Unsplash:
+            <a href="https://unsplash.com/photos/teacher-lecturing-students-in-a-classroom-setting-14jNrPntbgk">Vitaly Gariev</a>,
+            <a href="https://unsplash.com/photos/people-in-train-station-during-daytime-_N1N9OCB9nA">Simon Tartarotti</a> y
+            <a href="https://unsplash.com/photos/sittin-people-beside-table-inside-room-hCb3lIB8L8E">Annie Spratt</a>.
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
