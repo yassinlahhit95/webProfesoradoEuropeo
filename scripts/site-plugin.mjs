@@ -13,7 +13,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { generateContent, loadCourses, loadPosts, catalogHtml, courseOptionsHtml, postCardsHtml } from './content.mjs';
 
-const IGNORED_DIRS = new Set(['node_modules', 'dist', 'public', 'partials', 'templates', 'content', 'scripts', 'src', '.git', '.netlify']);
+const IGNORED_DIRS = new Set(['api', 'node_modules', 'dist', 'public', 'partials', 'templates', 'content', 'scripts', 'src', '.git', '.vercel']);
 
 function findHtmlPages(dir, root = dir) {
     const pages = [];

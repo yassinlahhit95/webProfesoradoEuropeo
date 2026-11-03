@@ -27,7 +27,7 @@ erasmus.html            Guía de Erasmus+            → /erasmus
 sobre-nosotros.html     Equipo y testimonios        → /sobre-nosotros
 aviso-legal.html, privacidad.html, cookies.html      Páginas legales
 gracias.html            Tras enviar el formulario sin JavaScript
-404.html                Página de error (Netlify la usa sola)
+404.html                Página de error (Vercel la usa sola)
 
 content/
   cursos/*.md           Un archivo por curso        → /cursos/<nombre>
@@ -47,14 +47,15 @@ src/js/
   menu.js               Menú móvil
   active-nav.js         Marca en el menú la página o sección actual
   catalog.js            Filtro y buscador de cursos (admite ?q=palabra en la URL)
-  contact-form.js       Validación y envío del formulario a Netlify
+  contact-form.js       Validación y envío del formulario a /api/contacto
 scripts/
   content.mjs           Convierte content/*.md en páginas HTML
   site-plugin.mjs       Plugin de Vite: piezas comunes, varias páginas, recarga en vivo
   photos.json           Fotos usadas (ID de Unsplash, autor, tamaños)
   images.mjs            Descarga y optimiza las fotos
 public/                 Archivos que se copian tal cual (favicon, robots.txt, img/)
-netlify.toml            Configuración de publicación y caché
+api/contacto.js         Función de Vercel: recibe el formulario y lo envía por email (Resend)
+vercel.json             Direcciones limpias (sin .html), caché y cabeceras de seguridad
 ```
 
 Las carpetas `cursos/` y `blog/` de la raíz **se generan solas** a partir de `content/`.
@@ -92,9 +93,12 @@ su ficha, el catálogo de la portada y la lista de cursos del formulario.
 - Valida cada campo y explica qué falta, sin recargar la página.
 - Las fichas de curso y los botones "Apuntarme" de los eventos enlazan a `/?curso=<nombre>#contacto`,
   y el formulario aparece con ese curso ya elegido.
-- Si alguien tiene JavaScript desactivado, el formulario se envía igual y Netlify muestra `/gracias`.
-- En `npm run dev` el envío **se simula** (Netlify no existe en local). Los datos aparecen en la
-  consola del navegador.
+- Lo recibe la función `api/contacto.js`, que vuelve a comprobar los datos, descarta a los bots
+  (campo trampa) y te lo envía por email con [Resend](https://resend.com). Al responder a ese email
+  contestas directamente a quien escribió.
+- Si alguien tiene JavaScript desactivado, el formulario se envía igual y se muestra `/gracias`.
+- Con `npm run dev` la función no existe, así que el envío **se simula** (los datos salen en la
+  consola del navegador). Para probarlo de verdad en local: `npx vercel dev`.
 
 ## Cambiar una foto
 
@@ -103,16 +107,23 @@ su ficha, el catálogo de la portada y la lista de cursos del formulario.
 3. Ejecuta `npm run images -- --force`.
 4. Actualiza el crédito del autor en `partials/footer.html`.
 
-## Publicar en Netlify
+## Publicar en Vercel
 
-1. Sube el proyecto a GitHub.
-2. En Netlify, elige *Add new site → Import an existing project* y selecciona el repositorio.
-   Netlify lee `netlify.toml`, así que el comando de build y la carpeta ya están configurados.
-3. **Activa los formularios:** en el panel del sitio, ve a *Forms* y pulsa *Enable form detection*.
-   Después vuelve a publicar (*Deploys → Trigger deploy*). Sin este paso Netlify no guarda los envíos.
-4. En *Forms → contacto* verás las solicitudes. En *Forms → Form notifications* puedes recibir
-   un email cada vez que alguien escriba.
-5. Envía una prueba desde la web publicada para comprobar que llega.
+La web se publica sola cada vez que subes cambios a GitHub (`git push`).
+`vercel.json` ya indica el comando de build, la carpeta `dist` y que las direcciones
+funcionen sin `.html` (por ejemplo `/erasmus` en lugar de `/erasmus.html`).
 
-Antes de publicar, completa los datos marcados en amarillo en `aviso-legal.html` y `privacidad.html`
-(razón social, NIF y dirección), y sustituye `info@edueurope.example` por tu correo real.
+### Activar el formulario (una sola vez)
+
+1. Crea una cuenta gratuita en [resend.com](https://resend.com) y, en *API Keys*, crea una clave.
+2. En Vercel, abre el proyecto → *Settings → Environment Variables* y añade:
+   - `RESEND_API_KEY`: la clave de Resend.
+   - `CONTACT_TO`: el email donde quieres recibir las solicitudes. Mientras no verifiques
+     un dominio en Resend, **tiene que ser el mismo email con el que te registraste en Resend**.
+   - `CONTACT_FROM` (opcional, solo con dominio verificado): por ejemplo `EduEurope <web@tudominio.com>`.
+3. Vuelve a publicar (*Deployments → ⋯ → Redeploy*) para que se apliquen las variables.
+4. Envía una prueba desde la web publicada. Si no llega, mira *Logs* en Vercel: los errores
+   del formulario aparecen con la etiqueta `[contacto]`.
+
+Antes de publicar en serio, completa los datos marcados en amarillo en `aviso-legal.html` y
+`privacidad.html` (razón social, NIF, dirección) y sustituye `info@edueurope.example` por tu correo real.

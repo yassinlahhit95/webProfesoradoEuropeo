@@ -251,10 +251,9 @@
             </address>
         </div>
 
-        <!-- Netlify Forms: el atributo data-netlify hace que Netlify guarde los envíos.
-             Sin JavaScript, el navegador envía el formulario y Netlify muestra /gracias. -->
-        <form id="contact-form" name="contacto" method="POST" action="/gracias" data-netlify="true" netlify-honeypot="empresa" novalidate>
-            <input type="hidden" name="form-name" value="contacto">
+        <!-- Se envía a la función de Vercel api/contacto.js, que lo manda por email con Resend.
+             Sin JavaScript también funciona: la función redirige a /gracias. -->
+        <form id="contact-form" method="POST" action="/api/contacto" novalidate>
             <p class="hp" aria-hidden="true"><label>No rellenar: <input name="empresa" tabindex="-1" autocomplete="off"></label></p>
             <div class="field-row">
                 <div class="field">

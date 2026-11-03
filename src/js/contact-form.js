@@ -1,10 +1,9 @@
-// Formulario de contacto con Netlify Forms.
+// Formulario de contacto.
 //
-// - Netlify detecta el formulario al publicar (atributo data-netlify) y guarda los
-//   envíos en el panel del sitio (Forms). Allí puedes activar avisos por email.
+// - Se envía a la función de Vercel /api/contacto (api/contacto.js), que lo manda por email con Resend.
 // - Con JavaScript: se valida cada campo, se envía sin recargar y se muestra el resultado.
-// - Sin JavaScript: el navegador lo envía normalmente y Netlify muestra /gracias.
-// - En local (npm run dev) Netlify no existe, así que el envío se simula.
+// - Sin JavaScript: el navegador lo envía normalmente y la función redirige a /gracias.
+// - Con `npm run dev` la función no existe (solo con `vercel dev` o publicado), así que el envío se simula.
 // - ?curso=<slug> en la dirección deja elegido ese curso o evento (lo usan las fichas de curso).
 
 const TIMEOUT_MS = 15000;
@@ -46,24 +45,28 @@ function validate(form) {
 }
 
 async function send(form) {
-    const body = new URLSearchParams(new FormData(form)).toString();
-
-    if (import.meta.env.DEV) {
-        console.info('[formulario] En local no se envía nada. Datos que recibiría Netlify:', Object.fromEntries(new URLSearchParams(body)));
-        await new Promise(r => setTimeout(r, 600));
-        return;
-    }
-
+    const body = new URLSearchParams(new FormData(form));
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
     try {
-        const res = await fetch('/', {
+        const res = await fetch(form.action, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            headers: { Accept: 'application/json' },
             body,
             signal: controller.signal,
         });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        // En `npm run dev` no hay función: simulamos el envío para poder probar el formulario
+        if (import.meta.env.DEV && res.status === 404) {
+            console.info('[formulario] En local no se envía nada (usa `vercel dev` para probarlo de verdad). Datos:', Object.fromEntries(body));
+            await new Promise(r => setTimeout(r, 600));
+            return;
+        }
+
+        if (!res.ok) {
+            const data = await res.json().catch(() => ({}));
+            throw new Error(data.error || `HTTP ${res.status}`);
+        }
     } finally {
         clearTimeout(timer);
     }

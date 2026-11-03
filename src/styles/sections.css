@@ -188,7 +188,7 @@ form .btn { justify-self: start; }
 @media (min-width: 640px) { .field-row { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 860px) { .contact-grid { grid-template-columns: 1fr 1.6fr; gap: 4rem; } }
 
-/* Campo trampa anti-spam (Netlify) */
+/* Campo trampa anti-spam: lo rellenan los bots, no las personas */
 .hp { position: absolute; left: -9999px; }
 form button[disabled] { opacity: .6; cursor: wait; }
 .faq-section { padding-top: 0; }
