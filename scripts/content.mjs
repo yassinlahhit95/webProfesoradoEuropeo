@@ -1,61 +1,129 @@
 // Genera las páginas de cursos y del blog a partir de archivos Markdown.
 //
-//   content/cursos/<slug>.md  →  cursos/<slug>.html   (dirección: /cursos/<slug>)
-//   content/blog/<slug>.md    →  blog/<slug>.html     (dirección: /blog/<slug>)
-//                                blog/index.html      (dirección: /blog/)
+//   content/cursos/<nombre>.md  →  cursos/<nombre>.html   (dirección: /cursos/<nombre>)
+//   content/blog/<nombre>.md    →  blog/<nombre>.html     (dirección: /blog/<nombre>)
+//                                  blog/index.html        (dirección: /blog/)
 //
-// Las plantillas están en templates/. Lo usa el plugin de Vite (scripts/site-plugin.mjs)
-// al arrancar `npm run dev` y `npm run build`, y cada vez que cambias un .md en modo dev.
+// Los .md pueden editarse a mano o desde el panel Pages CMS (ver .pages.yml).
+// Las fotos indicadas en "imagen" se optimizan solas (WebP en dos tamaños) en public/img/opt/.
+// Las plantillas están en templates/. Lo usa el plugin de Vite (scripts/site-plugin.mjs).
 
-import { readFileSync, readdirSync, existsSync, mkdirSync, writeFileSync, unlinkSync } from 'node:fs';
-import { join, basename } from 'node:path';
+import { readFileSync, readdirSync, existsSync, mkdirSync, writeFileSync, unlinkSync, statSync } from 'node:fs';
+import { join, basename, extname } from 'node:path';
+import { createHash } from 'node:crypto';
 import { marked } from 'marked';
+import { parse as parseYaml } from 'yaml';
+import sharp from 'sharp';
 
 // Marca que llevan los archivos generados. Solo se borran archivos que la tengan.
 const GENERATED = '<!-- Archivo generado automáticamente desde content/. No lo edites: cambia el .md. -->';
+const IMAGE_WIDTHS = [640, 1280];
 
 export const esc = s => String(s ?? '').replace(/[&<>"']/g, c => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
 ));
 
-// ---------- Lectura de archivos .md con cabecera "clave: valor" ----------
+// "Mi Artículo Nuevo" → "mi-articulo-nuevo"
+const slugify = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+    .replace(/ñ/g, 'n').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
-function parseFile(file, required) {
-    const raw = readFileSync(file, 'utf8').replace(/^﻿/, '').replace(/\r\n/g, '\n');
-    const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
-    if (!match) throw new Error(`${file}: el archivo debe empezar con una cabecera entre líneas "---".`);
-
-    const data = {};
-    for (const line of match[1].split('\n')) {
-        if (!line.trim() || line.trim().startsWith('#')) continue;
-        const i = line.indexOf(':');
-        if (i === -1) throw new Error(`${file}: esta línea de la cabecera no tiene el formato "clave: valor" → ${line}`);
-        let value = line.slice(i + 1).trim();
-        if (/^(["']).*\1$/.test(value)) value = value.slice(1, -1);
-        data[line.slice(0, i).trim()] = value;
-    }
-
-    const slug = basename(file, '.md');
-    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
-        throw new Error(`${file}: el nombre del archivo solo puede tener minúsculas sin tildes, números y guiones (ej.: mi-articulo.md).`);
-    }
-    const missing = required.filter(k => !data[k]);
-    if (missing.length) throw new Error(`${file}: faltan estos campos en la cabecera: ${missing.join(', ')}.`);
-    for (const key of ['inicio', 'fecha']) {
-        if (data[key] && !/^\d{4}-\d{2}-\d{2}$/.test(data[key])) {
-            throw new Error(`${file}: "${key}" debe tener el formato AAAA-MM-DD (ej.: 2026-11-16).`);
-        }
-    }
-
-    return { slug, ...data, body: match[2], html: marked.parse(match[2]) };
+// Acepta 2026-11-16, "2026-11-16T10:00:00Z" o una fecha ya convertida por YAML
+function toIsoDate(value) {
+    if (value instanceof Date && !isNaN(value)) return value.toISOString().slice(0, 10);
+    const m = String(value ?? '').match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    return m ? `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}` : null;
 }
 
-function loadCollection(dir, required) {
+const isTrue = v => v === true || ['si', 'sí', 'true', 'yes'].includes(String(v ?? '').toLowerCase());
+
+// ---------- Lectura de archivos .md ----------
+
+function parseFile(file, required, dateField) {
+    const raw = readFileSync(file, 'utf8').replace(/^﻿/, '').replace(/\r\n/g, '\n');
+    const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+    if (!match) throw new Error('el archivo debe empezar con una cabecera entre dos líneas "---".');
+
+    let data;
+    try {
+        data = parseYaml(match[1]) ?? {};
+    } catch (err) {
+        throw new Error(`la cabecera tiene un error de formato: ${err.message.split('\n')[0]}`);
+    }
+    const missing = required.filter(k => data[k] === undefined || data[k] === null || data[k] === '');
+    if (missing.length) throw new Error(`faltan estos campos: ${missing.join(', ')}.`);
+
+    const iso = toIsoDate(data[dateField]);
+    if (!iso) throw new Error(`"${dateField}" debe ser una fecha AAAA-MM-DD (ej.: 2026-11-16).`);
+
+    const slug = slugify(basename(file, extname(file)));
+    if (!slug) throw new Error('el nombre del archivo no es válido.');
+
+    // Todos los valores de la cabecera pasan a texto (salvo los que se tratan aparte)
+    const text = Object.fromEntries(Object.entries(data).map(([k, v]) => [k, v instanceof Date ? toIsoDate(v) : String(v ?? '').trim()]));
+    return { ...text, slug, [dateField]: iso, borrador: isTrue(data.borrador), body: match[2], html: marked.parse(match[2]) };
+}
+
+function loadCollection(dir, required, dateField, warnings) {
     if (!existsSync(dir)) return [];
-    return readdirSync(dir)
-        .filter(f => f.endsWith('.md') && !f.startsWith('_'))
-        .map(f => parseFile(join(dir, f), required))
-        .filter(item => !['si', 'sí', 'true'].includes(String(item.borrador).toLowerCase()));
+    const items = [];
+    for (const f of readdirSync(dir)) {
+        if (!f.endsWith('.md') || f.startsWith('_')) continue;
+        try {
+            const item = parseFile(join(dir, f), required, dateField);
+            if (!item.borrador) items.push(item);
+        } catch (err) {
+            warnings.push(`${join(basename(dir), f)}: ${err.message} → no se publica.`);
+        }
+    }
+    return items;
+}
+
+// ---------- Fotos ----------
+
+// Crea versiones WebP de una foto de public/ y devuelve los datos para <img>.
+async function optimizeImage(root, src, warnings, where) {
+    if (!src) return null;
+    if (/^https?:\/\//.test(src)) return { src, srcset: '', width: 1600, height: 1067 };
+
+    const file = join(root, 'public', decodeURIComponent(src.split('?')[0]));
+    if (!existsSync(file)) {
+        warnings.push(`${where}: no existe la imagen ${src} (debe estar dentro de public/) → se publica sin foto.`);
+        return null;
+    }
+    const { mtimeMs, size } = statSync(file);
+    const hash = createHash('md5').update(`${src}:${mtimeMs}:${size}`).digest('hex').slice(0, 8);
+    const base = slugify(basename(file, extname(file))) || 'foto';
+    const outDir = join(root, 'public', 'img', 'opt');
+    mkdirSync(outDir, { recursive: true });
+
+    try {
+        const meta = await sharp(file).metadata();
+        const ratio = (meta.height || 2) / (meta.width || 3);
+        const variants = [];
+        for (const w of IMAGE_WIDTHS) {
+            const width = Math.min(w, meta.width || w);
+            const name = `${base}-${hash}-${w}.webp`;
+            if (!existsSync(join(outDir, name))) {
+                await sharp(file).rotate().resize({ width, withoutEnlargement: true }).webp({ quality: 74 }).toFile(join(outDir, name));
+            }
+            variants.push({ url: `/img/opt/${name}`, width });
+        }
+        const largest = variants.at(-1);
+        return {
+            src: variants[0].url,
+            srcset: variants.map(v => `${v.url} ${v.width}w`).join(', '),
+            width: largest.width,
+            height: Math.round(largest.width * ratio),
+        };
+    } catch (err) {
+        warnings.push(`${where}: no se pudo procesar la imagen ${src} (${err.message}) → se publica sin foto.`);
+        return null;
+    }
+}
+
+function imgTag(image, alt, sizes, { lazy = true, cls = '' } = {}) {
+    if (!image) return '';
+    return `<img${cls ? ` class="${cls}"` : ''} src="${esc(image.src)}"${image.srcset ? ` srcset="${image.srcset}" sizes="${sizes}"` : ''} alt="${esc(alt)}" width="${image.width}" height="${image.height}"${lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'}>`;
 }
 
 // ---------- Fechas ----------
@@ -70,21 +138,22 @@ const readingTime = text => Math.max(1, Math.round(text.split(/\s+/).filter(Bool
 const COURSE_FIELDS = ['titulo', 'resumen', 'modalidad', 'horas', 'inicio', 'idioma', 'lugar', 'precio', 'formador'];
 const POST_FIELDS = ['titulo', 'descripcion', 'fecha', 'autor', 'categoria'];
 
-export function loadCourses(root) {
-    return loadCollection(join(root, 'content', 'cursos'), COURSE_FIELDS)
-        .map(c => {
-            const modalidad = c.modalidad.toLowerCase();
-            if (!['online', 'presencial'].includes(modalidad)) {
-                throw new Error(`content/cursos/${c.slug}.md: "modalidad" debe ser online o presencial.`);
-            }
-            return { ...c, modalidad };
+async function loadAll(root) {
+    const warnings = [];
+    const courses = loadCollection(join(root, 'content', 'cursos'), COURSE_FIELDS, 'inicio', warnings)
+        .filter(c => {
+            c.modalidad = c.modalidad.toLowerCase();
+            if (['online', 'presencial'].includes(c.modalidad)) return true;
+            warnings.push(`cursos/${c.slug}.md: "modalidad" debe ser online o presencial → no se publica.`);
+            return false;
         })
         .sort((a, b) => a.inicio.localeCompare(b.inicio));
-}
-
-export function loadPosts(root) {
-    return loadCollection(join(root, 'content', 'blog'), POST_FIELDS)
+    const posts = loadCollection(join(root, 'content', 'blog'), POST_FIELDS, 'fecha', warnings)
         .sort((a, b) => b.fecha.localeCompare(a.fecha));
+
+    for (const item of courses) item.image = await optimizeImage(root, item.imagen, warnings, `cursos/${item.slug}.md`);
+    for (const item of posts) item.image = await optimizeImage(root, item.imagen, warnings, `blog/${item.slug}.md`);
+    return { courses, posts, warnings };
 }
 
 // ---------- Fragmentos reutilizables ----------
@@ -114,12 +183,19 @@ export function postCardsHtml(posts, headingLevel = 3) {
     const h = `h${headingLevel}`;
     return posts.map(p => `
             <article class="post-card">
-                <p class="post-cat">${esc(p.categoria)}</p>
-                <${h}><a href="/blog/${p.slug}">${esc(p.titulo)}</a></${h}>
-                <p class="post-desc">${esc(p.descripcion)}</p>
-                <p class="post-meta"><time datetime="${p.fecha}">${fullDate(p.fecha)}</time> · ${readingTime(p.body)} min de lectura</p>
+                <div class="post-thumb">${p.image
+                    ? imgTag(p.image, '', '(min-width: 1000px) 380px, (min-width: 700px) 50vw, 100vw')
+                    : `<span class="post-thumb-empty" aria-hidden="true">${esc(p.categoria)}</span>`}</div>
+                <div class="post-body">
+                    <p class="post-cat">${esc(p.categoria)}</p>
+                    <${h}><a href="/blog/${p.slug}">${esc(p.titulo)}</a></${h}>
+                    <p class="post-desc">${esc(p.descripcion)}</p>
+                    <p class="post-meta"><time datetime="${p.fecha}">${fullDate(p.fecha)}</time> · ${readingTime(p.body)} min de lectura</p>
+                </div>
             </article>`).join('\n');
 }
+
+const credit = text => (text ? `<figcaption>${esc(text)}</figcaption>` : '');
 
 // ---------- Plantillas ----------
 
@@ -131,7 +207,10 @@ function fill(template, vars, name) {
 }
 
 function writeGenerated(file, html) {
-    writeFileSync(file, html.replace(/^(<!DOCTYPE html>\n?)/i, `$1${GENERATED}\n`));
+    const content = html.replace(/^(<!DOCTYPE html>\n?)/i, `$1${GENERATED}\n`);
+    // No reescribir si no cambia: evita recargas innecesarias en dev
+    if (existsSync(file) && readFileSync(file, 'utf8') === content) return;
+    writeFileSync(file, content);
 }
 
 // Borra las páginas generadas que ya no tienen .md (por ejemplo, si borras un artículo)
@@ -144,10 +223,14 @@ function cleanGenerated(dir, keep) {
     }
 }
 
-export function generateContent(root) {
+// Último contenido generado (lo usa el plugin para la portada)
+let site = { courses: [], posts: [] };
+export const getSite = () => site;
+
+export async function generateContent(root, log = console) {
     const tpl = name => readFileSync(join(root, 'templates', name), 'utf8');
-    const courses = loadCourses(root);
-    const posts = loadPosts(root);
+    const { courses, posts, warnings } = await loadAll(root);
+    warnings.forEach(w => log.warn(`⚠ ${w}`));
 
     // Cursos
     const coursesDir = join(root, 'cursos');
@@ -169,6 +252,10 @@ export function generateContent(root) {
             precio: esc(c.precio),
             formador: esc(c.formador),
             formadorBio: esc(c.formador_bio || ''),
+            heroClass: c.image ? 'page-hero has-photo' : 'page-hero',
+            imagen: c.image
+                ? `<figure class="hero-photo">${imgTag(c.image, c.imagen_alt || '', '(min-width: 960px) 40vw, 100vw', { lazy: false })}${credit(c.imagen_credito)}</figure>`
+                : '',
             contenido: c.html,
             erasmus: c.modalidad === 'presencial'
                 ? `<p class="aside-note">Este curso puede financiarse con una movilidad Erasmus+ KA1. <a href="/erasmus">Te explicamos cómo</a>.</p>`
@@ -193,8 +280,9 @@ export function generateContent(root) {
             fechaIso: p.fecha,
             fecha: fullDate(p.fecha),
             lectura: String(readingTime(p.body)),
-            imagen: p.imagen
-                ? `<figure class="post-cover"><img src="${esc(p.imagen)}" alt="${esc(p.imagen_alt || '')}" width="1600" height="1067"></figure>`
+            ogImage: p.image ? `<meta property="og:image" content="${esc(p.image.src.replace('-640.', '-1280.'))}">` : '',
+            imagen: p.image
+                ? `<figure class="post-cover">${imgTag(p.image, p.imagen_alt || '', '(min-width: 860px) 800px, 100vw', { lazy: false })}${credit(p.imagen_credito)}</figure>`
                 : '',
             contenido: p.html,
             otros: others.length
@@ -207,5 +295,6 @@ export function generateContent(root) {
     }, 'blog.html'));
     cleanGenerated(blogDir, new Set([...posts.map(p => `${p.slug}.html`), 'index.html']));
 
-    return { courses, posts };
+    site = { courses, posts };
+    return site;
 }

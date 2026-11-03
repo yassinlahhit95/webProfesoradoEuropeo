@@ -5,3 +5,4 @@ dist
 # Páginas generadas desde content/ (se crean solas con npm run dev / build)
 /cursos/
 /blog/
+/public/img/opt/

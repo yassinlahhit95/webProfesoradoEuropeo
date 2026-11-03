@@ -4,6 +4,9 @@ descripcion: Puntos, insignias y clasificaciones pueden motivar o desmotivar. Cl
 fecha: 2026-09-30
 autor: Pablo Ruiz
 categoria: Metodologías
+imagen: /img/fotos/blog-juego.jpg
+imagen_alt: Dados sobre un tablero de serpientes y escaleras
+imagen_credito: "Foto: VD Photography / Unsplash"
 ---
 
 La gamificación tiene mala fama en algunos claustros, y a veces con razón. Una tabla de clasificación en la pared motiva a los tres primeros y desanima al resto. Pero gamificar no es eso.

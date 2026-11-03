@@ -9,6 +9,9 @@ lugar: Bilbao (5 días)
 precio: 480 €
 formador: Iñigo Larrañaga
 formador_bio: Director de un instituto de FP y evaluador externo de proyectos Erasmus+. Lleva doce años en equipos directivos.
+imagen: /img/fotos/curso-liderazgo.jpg
+imagen_alt: Un grupo de personas conversa de pie en una sala luminosa
+imagen_credito: "Foto: Akson / Unsplash"
 ---
 
 ## Qué aprenderás

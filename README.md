@@ -34,6 +34,9 @@ content/
   blog/*.md             Un archivo por artículo     → /blog/<nombre>
   blog/_plantilla.md    Plantilla para artículos nuevos (no se publica)
 templates/              Diseño de las páginas de curso, artículo y listado del blog
+.pages.yml              Configuración del panel de edición Pages CMS
+public/img/fotos/       Fotos de cursos y artículos de ejemplo (Unsplash)
+public/img/subidas/     Fotos subidas desde el panel
 partials/               Piezas comunes: nav.html, footer.html, testimonios.html
 
 src/main.js             Punto de entrada (carga fuentes, estilos y scripts)
@@ -49,7 +52,7 @@ src/js/
   catalog.js            Filtro y buscador de cursos (admite ?q=palabra en la URL)
   contact-form.js       Validación y envío del formulario a /api/contacto
 scripts/
-  content.mjs           Convierte content/*.md en páginas HTML
+  content.mjs           Convierte content/*.md en páginas HTML y optimiza sus fotos
   site-plugin.mjs       Plugin de Vite: piezas comunes, varias páginas, recarga en vivo
   photos.json           Fotos usadas (ID de Unsplash, autor, tamaños)
   images.mjs            Descarga y optimiza las fotos
@@ -70,23 +73,43 @@ En cualquier HTML puedes usar estas marcas:
 | `<!-- cursos:opciones -->` | Las opciones de cursos del formulario |
 | `<!-- blog:ultimos -->` | Las 3 últimas entradas del blog |
 
-## Escribir un artículo del blog
+## Escribir y editar artículos (panel Pages CMS)
 
-1. Copia `content/blog/_plantilla.md` en la misma carpeta con un nombre nuevo, sin tildes
-   ni espacios: por ejemplo `evaluar-con-rubricas.md`. Su dirección será `/blog/evaluar-con-rubricas`.
-2. Rellena la cabecera (`titulo`, `descripcion`, `fecha`, `autor`, `categoria`) y escribe
-   el texto en Markdown debajo.
-3. Con `npm run dev` abierto, la página se crea al guardar. Aparece en `/blog/` y, si es
-   de las tres más recientes, en la portada.
+La forma más cómoda es el panel **Pages CMS**: formularios, editor de texto con botones y
+subida de fotos, sin tocar código. Es gratuito y no hace falta instalar nada.
 
-Para guardar un borrador sin publicarlo, añade `borrador: si` a la cabecera.
-Si falta un campo o la fecha está mal escrita, la terminal te dice qué falta y en qué archivo.
+**Configurarlo (una vez):**
 
-## Añadir o cambiar un curso
+1. Entra en [app.pagescms.org](https://app.pagescms.org) y pulsa *Sign in with GitHub*.
+2. Instala la aplicación de Pages CMS en tu cuenta de GitHub y dale acceso **solo** al
+   repositorio `webProfesoradoEuropeo`.
+3. Abre el repositorio desde el panel. Verás dos secciones: **Blog** y **Cursos**
+   (las define el archivo `.pages.yml`).
 
-Crea o edita un archivo en `content/cursos/` (copia uno que ya exista). Con eso se actualizan
-su ficha, el catálogo de la portada y la lista de cursos del formulario.
-`modalidad` debe ser `online` o `presencial`, y `inicio` una fecha `AAAA-MM-DD`.
+**Publicar un artículo:**
+
+1. *Blog → Add an entry*. Rellena título, resumen, fecha, autor y categoría.
+2. Sube una foto horizontal en *Foto principal* y describe qué se ve en ella.
+3. Escribe el texto en el editor (negritas, listas, enlaces, subtítulos e imágenes).
+4. Pulsa *Save*. En uno o dos minutos Vercel publica la web con el artículo nuevo.
+
+Para preparar un artículo sin publicarlo, marca *Borrador*. Para editarlo o borrarlo,
+ábrelo desde la lista del blog. Para que otras personas escriban sin darles acceso a GitHub,
+añádelas en *Settings → Collaborators* del panel.
+
+Los cursos se editan igual desde la sección **Cursos**: al guardar se actualizan su ficha,
+el catálogo de la portada y la lista del formulario.
+
+### Detalles técnicos
+
+- Cada artículo es un archivo `content/blog/<nombre>.md` y cada curso `content/cursos/<nombre>.md`.
+  Su dirección es `/blog/<nombre>` o `/cursos/<nombre>`. También puedes editarlos a mano
+  (tienes una plantilla en `content/blog/_plantilla.md`).
+- Las fotos subidas desde el panel se guardan en `public/img/subidas/`. Al publicar se crean
+  versiones WebP de 640 y 1280 px en `public/img/opt/` (carpeta generada, no se sube a Git).
+- Si un artículo tiene un error (le falta un campo, la foto no existe...), **no se publica ese
+  artículo**, pero el resto de la web sí. El aviso aparece en los *Build Logs* de Vercel y en
+  la terminal de `npm run dev`, empezando por ⚠.
 
 ## Formulario de contacto
 

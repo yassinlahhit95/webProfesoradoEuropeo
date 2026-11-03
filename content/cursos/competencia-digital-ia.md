@@ -9,6 +9,9 @@ lugar: Online (a tu ritmo, con 4 sesiones en directo)
 precio: 220 €
 formador: Carla Duarte
 formador_bio: Profesora de Matemáticas y formadora en competencia digital docente. Colabora con centros de España y Portugal en proyectos sobre IA educativa.
+imagen: /img/fotos/curso-ia.jpg
+imagen_alt: Una profesora sonríe sentada ante su portátil frente a una pizarra
+imagen_credito: "Foto: Vitaly Gariev / Unsplash"
 ---
 
 ## Qué aprenderás

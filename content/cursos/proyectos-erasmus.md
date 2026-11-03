@@ -1,6 +1,6 @@
 ---
 titulo: Diseño y gestión de proyectos Erasmus+
-resumen: De la idea a la solicitud: socios, presupuesto, movilidades y justificación final.
+resumen: "De la idea a la solicitud: socios, presupuesto, movilidades y justificación final."
 modalidad: presencial
 horas: 30
 inicio: 2026-12-12
@@ -9,6 +9,9 @@ lugar: Bilbao (5 días)
 precio: 450 €
 formador: Iñigo Larrañaga
 formador_bio: Director de un instituto de FP y evaluador externo de proyectos Erasmus+. Ha coordinado más de 15 proyectos KA1 y KA2.
+imagen: /img/fotos/curso-erasmus.jpg
+imagen_alt: Cuatro personas trabajan con portátiles alrededor de una mesa
+imagen_credito: "Foto: CoWomen / Unsplash"
 ---
 
 ## Qué aprenderás

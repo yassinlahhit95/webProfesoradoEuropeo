@@ -9,6 +9,9 @@ lugar: Online (a tu ritmo)
 precio: 120 €
 formador: Pablo Ruiz
 formador_bio: Maestro de Primaria y diseñador de juegos de mesa educativos. Usa la gamificación en su aula desde hace diez años.
+imagen: /img/fotos/curso-gamificacion.jpg
+imagen_alt: Fichas de colores y dados sobre un tablero de juego
+imagen_credito: "Foto: Nik Korba / Unsplash"
 ---
 
 ## Qué aprenderás

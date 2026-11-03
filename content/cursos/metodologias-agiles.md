@@ -9,6 +9,9 @@ lugar: Online (sesiones en directo los martes, 17:30–19:00)
 precio: 190 €
 formador: Ana Etxeberria
 formador_bio: Profesora de Tecnología en Secundaria y coordinadora de proyectos de innovación. Lleva seis años usando Scrum con sus grupos.
+imagen: /img/fotos/curso-agiles.jpg
+imagen_alt: Dos personas organizan un proyecto con notas adhesivas en una pared de cristal
+imagen_credito: "Foto: airfocus / Unsplash"
 ---
 
 ## Qué aprenderás

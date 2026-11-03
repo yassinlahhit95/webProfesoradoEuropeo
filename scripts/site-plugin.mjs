@@ -11,7 +11,7 @@
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
-import { generateContent, loadCourses, loadPosts, catalogHtml, courseOptionsHtml, postCardsHtml } from './content.mjs';
+import { generateContent, getSite, catalogHtml, courseOptionsHtml, postCardsHtml } from './content.mjs';
 
 const IGNORED_DIRS = new Set(['api', 'node_modules', 'dist', 'public', 'partials', 'templates', 'content', 'scripts', 'src', '.git', '.vercel']);
 
@@ -34,9 +34,9 @@ function expand(html, root) {
             if (!existsSync(file)) throw new Error(`No existe partials/${name}.html`);
             return readFileSync(file, 'utf8');
         })
-        .replace(/<!--\s*cursos:catalogo\s*-->/g, () => catalogHtml(loadCourses(root)))
-        .replace(/<!--\s*cursos:opciones\s*-->/g, () => courseOptionsHtml(loadCourses(root)))
-        .replace(/<!--\s*blog:ultimos\s*-->/g, () => postCardsHtml(loadPosts(root).slice(0, 3)));
+        .replace(/<!--\s*cursos:catalogo\s*-->/g, () => catalogHtml(getSite().courses))
+        .replace(/<!--\s*cursos:opciones\s*-->/g, () => courseOptionsHtml(getSite().courses))
+        .replace(/<!--\s*blog:ultimos\s*-->/g, () => postCardsHtml(getSite().posts.slice(0, 3)));
 }
 
 export default function sitePlugin() {
@@ -45,9 +45,9 @@ export default function sitePlugin() {
     return {
         name: 'edueurope-site',
 
-        config(userConfig) {
+        async config(userConfig) {
             if (userConfig.root) root = userConfig.root;
-            generateContent(root);
+            await generateContent(root);
             const input = Object.fromEntries(findHtmlPages(root).map(file => [
                 relative(root, file).split(sep).join('/').replace(/\.html$/, ''),
                 file,
@@ -63,10 +63,10 @@ export default function sitePlugin() {
         configureServer(server) {
             const watched = ['content', 'partials', 'templates'].map(d => join(root, d));
             server.watcher.add(watched);
-            server.watcher.on('all', (event, file) => {
+            server.watcher.on('all', async (event, file) => {
                 if (!watched.some(d => file.startsWith(d))) return;
                 try {
-                    if (!file.startsWith(join(root, 'partials'))) generateContent(root);
+                    if (!file.startsWith(join(root, 'partials'))) await generateContent(root, server.config.logger);
                 } catch (err) {
                     server.config.logger.error(`\n${err.message}\n`);
                     return;

@@ -9,6 +9,9 @@ lugar: Lisboa (5 días)
 precio: 400 €
 formador: Sofía Marques
 formador_bio: Orientadora educativa y especialista en DUA. Ha asesorado a más de 60 centros en Portugal y España.
+imagen: /img/fotos/curso-inclusion.jpg
+imagen_alt: Una maestra habla a un grupo de alumnos en un aula de Primaria
+imagen_credito: "Foto: National Cancer Institute / Unsplash"
 ---
 
 ## Qué aprenderás

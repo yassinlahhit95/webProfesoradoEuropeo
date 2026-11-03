@@ -4,6 +4,9 @@ descripcion: La inteligencia artificial puede ahorrarte horas de corrección, pe
 fecha: 2026-10-28
 autor: Carla Duarte
 categoria: Competencia digital
+imagen: /img/fotos/blog-evaluacion.jpg
+imagen_alt: Una mano rellena con lápiz una hoja de respuestas de examen
+imagen_credito: "Foto: Nguyen Dang Hoang Nhu / Unsplash"
 ---
 
 Desde que los asistentes de IA llegaron a las aulas, la pregunta que más nos hacen en los cursos es la misma: *¿puedo usarla para corregir?* La respuesta corta es sí, pero no para poner la nota. Estos son cinco usos que funcionan.

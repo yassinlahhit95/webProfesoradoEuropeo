@@ -1,11 +1,12 @@
 ---
-titulo: Tu primera movilidad Erasmus+: calendario y errores que conviene evitar
+titulo: "Tu primera movilidad Erasmus+: calendario y errores que conviene evitar"
 descripcion: Si tu centro nunca ha pedido una movilidad Erasmus+, este calendario te ayuda a llegar al plazo de solicitud con todo preparado.
 fecha: 2026-10-14
 autor: Iñigo Larrañaga
 categoria: Erasmus+
 imagen: /img/estacion-900.jpg
 imagen_alt: Viajeros en el andén de una estación de tren europea
+imagen_credito: "Foto: Simon Tartarotti / Unsplash"
 ---
 
 Cada año muchos centros se quedan sin movilidad no porque su proyecto sea malo, sino porque empiezan tarde. La convocatoria de proyectos de corta duración (KA1) se cierra normalmente en febrero, así que el trabajo empieza en otoño.

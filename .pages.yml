@@ -1,0 +1,155 @@
+# Configuración del panel de edición Pages CMS (https://app.pagescms.org)
+# Entras con tu cuenta de GitHub, eliges este repositorio y puedes crear y editar
+# artículos y cursos con formularios. Cada cambio se guarda en GitHub y Vercel
+# vuelve a publicar la web sola en uno o dos minutos.
+
+media:
+  input: public/img/subidas
+  output: /img/subidas
+  categories: [image]
+
+content:
+  # ------------------------------------------------------------------ BLOG
+  - name: blog
+    label: Blog
+    type: collection
+    path: content/blog
+    format: yaml-frontmatter
+    exclude: [_plantilla.md]
+    filename: "{titulo}.md"
+    view:
+      fields: [titulo, fecha, categoria, borrador]
+      primary: titulo
+      sort: [fecha, titulo]
+      search: [titulo, descripcion, autor]
+      default:
+        sort: fecha
+        order: desc
+    fields:
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+      - name: descripcion
+        label: Resumen
+        description: Una o dos frases. Se ven en las tarjetas del blog y en Google.
+        type: text
+        required: true
+      - name: fecha
+        label: Fecha de publicación
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: autor
+        label: Autor o autora
+        type: string
+        required: true
+      - name: categoria
+        label: Categoría
+        type: select
+        required: true
+        options:
+          values: [Metodologías, Erasmus+, Competencia digital, Inclusión, Liderazgo, Experiencias, Noticias]
+      - name: imagen
+        label: Foto principal
+        description: Horizontal, de al menos 1280 px de ancho. Se optimiza sola al publicar.
+        type: image
+      - name: imagen_alt
+        label: Descripción de la foto
+        description: Qué se ve en la foto, para personas ciegas y para Google. Ej. "Alumnos trabajando en grupo con tabletas".
+        type: string
+      - name: imagen_credito
+        label: Crédito de la foto
+        description: 'Ej.: "Foto: Ana López / Unsplash". Déjalo vacío si la foto es vuestra.'
+        type: string
+      - name: borrador
+        label: Borrador (no publicar todavía)
+        type: boolean
+        default: false
+      - name: body
+        label: Texto del artículo
+        type: rich-text
+        options:
+          format: markdown
+          rename: true
+
+  # ---------------------------------------------------------------- CURSOS
+  - name: cursos
+    label: Cursos
+    type: collection
+    path: content/cursos
+    format: yaml-frontmatter
+    filename: "{titulo}.md"
+    view:
+      fields: [titulo, modalidad, inicio, borrador]
+      primary: titulo
+      sort: [inicio, titulo]
+      default:
+        sort: inicio
+        order: asc
+    fields:
+      - name: titulo
+        label: Nombre del curso
+        type: string
+        required: true
+      - name: resumen
+        label: Resumen
+        description: Una frase. Aparece en el catálogo de la portada.
+        type: text
+        required: true
+      - name: modalidad
+        label: Modalidad
+        type: select
+        required: true
+        options:
+          values: [online, presencial]
+      - name: horas
+        label: Horas
+        type: number
+        required: true
+      - name: inicio
+        label: Fecha de inicio
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: idioma
+        label: Idioma
+        type: string
+        required: true
+      - name: lugar
+        label: Lugar y horario
+        type: string
+        required: true
+      - name: precio
+        label: Precio
+        description: 'Ej.: "190 €"'
+        type: string
+        required: true
+      - name: formador
+        label: Formador o formadora
+        type: string
+        required: true
+      - name: formador_bio
+        label: Sobre quien lo imparte
+        type: text
+      - name: imagen
+        label: Foto
+        type: image
+      - name: imagen_alt
+        label: Descripción de la foto
+        type: string
+      - name: imagen_credito
+        label: Crédito de la foto
+        type: string
+      - name: borrador
+        label: Oculto (no publicar)
+        type: boolean
+        default: false
+      - name: body
+        label: Contenido (Qué aprenderás, Programa, A quién va dirigido...)
+        type: rich-text
+        options:
+          format: markdown
+          rename: true
