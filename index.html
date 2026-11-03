@@ -29,52 +29,7 @@
 </head>
 <body>
 
-<a class="skip" href="#contenido">Saltar al contenido</a>
-
-<!-- ================= NAVEGACIÓN ================= -->
-<nav class="nav" aria-label="Principal">
-    <div class="wrap nav-inner">
-        <a href="#inicio" class="logo" aria-label="EduEurope, inicio">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            EduEurope
-        </a>
-
-        <div class="nav-links">
-            <a href="#programas">Programas</a>
-            <a href="#erasmus">Erasmus+</a>
-            <a href="#eventos">Eventos</a>
-            <a href="#sobre-nosotros">Sobre nosotros</a>
-            <a href="#contacto">Contacto</a>
-        </div>
-
-        <div class="nav-actions">
-            <form class="search" role="search" action="#programas">
-                <label for="q" class="sr-only">Buscar cursos</label>
-                <input id="q" class="search-input" type="search" placeholder="Buscar cursos">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg>
-            </form>
-            <a href="#login" class="login">Acceder</a>
-        </div>
-
-        <button class="menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="i-open" d="M4 7h16M4 12h16M4 17h16"/><path class="i-close" d="M6 6l12 12M18 6L6 18" style="display:none"/></svg>
-        </button>
-    </div>
-
-    <div id="mobile-menu" class="mobile-menu" hidden>
-        <form class="search" role="search" action="#programas">
-            <label for="q-m" class="sr-only">Buscar cursos</label>
-            <input id="q-m" class="search-input" type="search" placeholder="Buscar cursos">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg>
-        </form>
-        <a href="#programas">Programas</a>
-        <a href="#erasmus">Erasmus+</a>
-        <a href="#eventos">Eventos</a>
-        <a href="#sobre-nosotros">Sobre nosotros</a>
-        <a href="#contacto">Contacto</a>
-        <a href="#login">Acceder</a>
-    </div>
-</nav>
+<!-- include:nav -->
 
 <main id="contenido">
 
@@ -123,77 +78,7 @@
                 <span>Curso</span><span>Modalidad</span><span>Horas</span><span>Próximo inicio</span>
             </div>
 
-            <article class="course" data-mode="online">
-                <div>
-                    <h3><a href="#contacto">Metodologías ágiles en el aula</a></h3>
-                    <p class="course-desc">Scrum y Kanban adaptados a proyectos de clase, con plantillas listas para usar.</p>
-                </div>
-                <dl class="course-meta">
-                    <dt>Modalidad</dt><dd class="mode online">Online</dd>
-                    <dt>Horas</dt><dd>40 h</dd>
-                    <dt>Próximo inicio</dt><dd>16 de noviembre</dd>
-                </dl>
-            </article>
-
-            <article class="course" data-mode="presencial">
-                <div>
-                    <h3><a href="#contacto">Diseño y gestión de proyectos Erasmus+</a></h3>
-                    <p class="course-desc">De la idea a la solicitud: socios, presupuesto, movilidades y justificación final.</p>
-                </div>
-                <dl class="course-meta">
-                    <dt>Modalidad</dt><dd class="mode presencial">Presencial</dd>
-                    <dt>Horas</dt><dd>30 h</dd>
-                    <dt>Próximo inicio</dt><dd>12 de diciembre</dd>
-                </dl>
-            </article>
-
-            <article class="course" data-mode="online">
-                <div>
-                    <h3><a href="#contacto">Competencia digital e IA</a></h3>
-                    <p class="course-desc">Herramientas digitales e inteligencia artificial para preparar clases, evaluar y personalizar.</p>
-                </div>
-                <dl class="course-meta">
-                    <dt>Modalidad</dt><dd class="mode online">Online</dd>
-                    <dt>Horas</dt><dd>50 h</dd>
-                    <dt>Próximo inicio</dt><dd>11 de enero</dd>
-                </dl>
-            </article>
-
-            <article class="course" data-mode="presencial">
-                <div>
-                    <h3><a href="#contacto">Inclusión y Diseño Universal para el Aprendizaje</a></h3>
-                    <p class="course-desc">Cómo planificar una sola clase que funcione para todo el alumnado.</p>
-                </div>
-                <dl class="course-meta">
-                    <dt>Modalidad</dt><dd class="mode presencial">Presencial</dd>
-                    <dt>Horas</dt><dd>25 h</dd>
-                    <dt>Próximo inicio</dt><dd>25 de enero</dd>
-                </dl>
-            </article>
-
-            <article class="course" data-mode="online">
-                <div>
-                    <h3><a href="#contacto">Gamificación</a></h3>
-                    <p class="course-desc">Retos, niveles y recompensas que mejoran la participación sin convertir la clase en un concurso.</p>
-                </div>
-                <dl class="course-meta">
-                    <dt>Modalidad</dt><dd class="mode online">Online</dd>
-                    <dt>Horas</dt><dd>20 h</dd>
-                    <dt>Próximo inicio</dt><dd>8 de febrero</dd>
-                </dl>
-            </article>
-
-            <article class="course" data-mode="presencial">
-                <div>
-                    <h3><a href="#contacto">Liderazgo y coordinación de equipos docentes</a></h3>
-                    <p class="course-desc">Para jefaturas de departamento y equipos directivos que impulsan cambios en su centro.</p>
-                </div>
-                <dl class="course-meta">
-                    <dt>Modalidad</dt><dd class="mode presencial">Presencial</dd>
-                    <dt>Horas</dt><dd>35 h</dd>
-                    <dt>Próximo inicio</dt><dd>1 de marzo</dd>
-                </dl>
-            </article>
+            <!-- cursos:catalogo -->
 
             <p class="course empty" hidden>No hay cursos que coincidan con tu búsqueda. Prueba con otra palabra o <a href="#contacto">escríbenos</a>.</p>
         </div>
@@ -207,6 +92,9 @@
         <p>Más de 10.000 docentes de centros europeos han pasado por nuestros cursos.</p>
     </div>
 </section>
+
+<!-- ================= TESTIMONIOS ================= -->
+<!-- include:testimonios -->
 
 <!-- ================= ERASMUS+ ================= -->
 <section id="erasmus" class="section">
@@ -242,6 +130,7 @@
                 <p>Certificado de asistencia y Europass Movilidad para justificar la estancia.</p>
             </li>
         </ol>
+        <p class="section-more"><a href="/erasmus">Guía completa: qué cubre la beca, plazos y documentos →</a></p>
     </div>
 </section>
 
@@ -260,7 +149,7 @@
                     <p class="event-where">Webinar, 17:00–18:30</p>
                 </div>
                 <p class="event-where">Online</p>
-                <a href="#contacto">Apuntarme</a>
+                <a href="/?curso=evento-ia-evaluacion#contacto">Apuntarme</a>
             </li>
             <li class="event">
                 <time datetime="2026-12-12"><b>12</b><span>diciembre</span></time>
@@ -269,7 +158,7 @@
                     <p class="event-where">Taller práctico, 9:30–14:00</p>
                 </div>
                 <p class="event-where">Bilbao</p>
-                <a href="#contacto">Apuntarme</a>
+                <a href="/?curso=evento-taller-erasmus#contacto">Apuntarme</a>
             </li>
             <li class="event">
                 <time datetime="2027-01-22"><b>22</b><span>enero</span></time>
@@ -278,7 +167,7 @@
                     <p class="event-where">Ponencias y talleres, 22 y 23 de enero</p>
                 </div>
                 <p class="event-where">Lisboa</p>
-                <a href="#contacto">Apuntarme</a>
+                <a href="/?curso=evento-encuentro-lisboa#contacto">Apuntarme</a>
             </li>
         </ul>
     </div>
@@ -301,6 +190,23 @@
                 <li><strong>Materiales reutilizables</strong> que te llevas al terminar.</li>
                 <li><strong>Contenidos alineados con DigCompEdu</strong>, el marco europeo de competencia digital docente.</li>
             </ul>
+            <p class="section-more"><a href="/sobre-nosotros">Conoce al equipo →</a></p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= BLOG ================= -->
+<section id="blog" class="section blog-home">
+    <div class="wrap">
+        <div class="section-head section-head-row">
+            <div>
+                <h2>Del blog</h2>
+                <p>Ideas para probar en clase y novedades sobre Erasmus+.</p>
+            </div>
+            <a class="btn btn-secondary" href="/blog/">Ver todos los artículos</a>
+        </div>
+        <div class="post-grid">
+            <!-- blog:ultimos -->
         </div>
     </div>
 </section>
@@ -345,39 +251,54 @@
             </address>
         </div>
 
-        <form id="contact-form" name="contacto" method="POST" data-netlify="true" netlify-honeypot="empresa" novalidate>
+        <!-- Netlify Forms: el atributo data-netlify hace que Netlify guarde los envíos.
+             Sin JavaScript, el navegador envía el formulario y Netlify muestra /gracias. -->
+        <form id="contact-form" name="contacto" method="POST" action="/gracias" data-netlify="true" netlify-honeypot="empresa" novalidate>
             <input type="hidden" name="form-name" value="contacto">
             <p class="hp" aria-hidden="true"><label>No rellenar: <input name="empresa" tabindex="-1" autocomplete="off"></label></p>
             <div class="field-row">
                 <div class="field">
                     <label for="nombre">Nombre</label>
-                    <input id="nombre" name="nombre" type="text" required autocomplete="name">
+                    <input id="nombre" name="nombre" type="text" required autocomplete="name" maxlength="100" aria-describedby="nombre-error">
+                    <p class="field-error" id="nombre-error"></p>
                 </div>
                 <div class="field">
                     <label for="email">Correo electrónico</label>
-                    <input id="email" name="email" type="email" required autocomplete="email">
+                    <input id="email" name="email" type="email" required autocomplete="email" maxlength="150" aria-describedby="email-error">
+                    <p class="field-error" id="email-error"></p>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label for="centro">Centro educativo (opcional)</label>
+                    <input id="centro" name="centro" type="text" autocomplete="organization" maxlength="150">
+                </div>
+                <div class="field">
+                    <label for="curso">Me interesa</label>
+                    <select id="curso" name="curso">
+                        <optgroup label="Cursos">
+                        <!-- cursos:opciones -->
+                        </optgroup>
+                        <optgroup label="Eventos gratuitos">
+                        <option value="Evento: IA generativa en la evaluación (18 nov.)" data-slug="evento-ia-evaluacion">IA generativa en la evaluación (18 nov.)</option>
+                        <option value="Evento: Prepara tu solicitud Erasmus+ (12 dic.)" data-slug="evento-taller-erasmus">Prepara tu solicitud Erasmus+ (12 dic.)</option>
+                        <option value="Evento: Encuentro europeo de docentes (22 ene.)" data-slug="evento-encuentro-lisboa">Encuentro europeo de docentes (22 ene.)</option>
+                        </optgroup>
+                        <option value="Todavía no lo sé" selected>Todavía no lo sé</option>
+                    </select>
                 </div>
             </div>
             <div class="field">
-                <label for="curso">Curso</label>
-                <select id="curso" name="curso">
-                    <option>Metodologías ágiles en el aula</option>
-                    <option>Diseño y gestión de proyectos Erasmus+</option>
-                    <option>Competencia digital e IA</option>
-                    <option>Inclusión y Diseño Universal para el Aprendizaje</option>
-                    <option>Gamificación</option>
-                    <option>Liderazgo y coordinación de equipos docentes</option>
-                    <option>Todavía no lo sé</option>
-                </select>
+                <label for="mensaje">Mensaje (opcional)</label>
+                <textarea id="mensaje" name="mensaje" maxlength="3000"></textarea>
             </div>
             <div class="field">
-                <label for="mensaje">Mensaje (opcional)</label>
-                <textarea id="mensaje" name="mensaje"></textarea>
+                <label class="check">
+                    <input type="checkbox" id="privacidad" name="privacidad" value="si" required aria-describedby="privacidad-error">
+                    <span>He leído y acepto la <a href="/privacidad" target="_blank">política de privacidad</a>.</span>
+                </label>
+                <p class="field-error" id="privacidad-error"></p>
             </div>
-            <label class="check">
-                <input type="checkbox" id="privacidad" name="privacidad" value="si" required>
-                <span>He leído y acepto la <a href="#">política de privacidad</a>.</span>
-            </label>
             <button type="submit" class="btn btn-primary">Enviar solicitud</button>
             <p class="form-msg" role="status" aria-live="polite"></p>
         </form>
@@ -386,57 +307,7 @@
 
 </main>
 
-<!-- ================= FOOTER ================= -->
-<footer class="footer">
-    <div class="wrap">
-        <div class="footer-grid">
-            <div>
-                <a href="#inicio" class="logo">
-                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    EduEurope
-                </a>
-                <p class="footer-tagline">Formación para el profesorado europeo.</p>
-            </div>
-            <div>
-                <h2>Cursos</h2>
-                <ul>
-                    <li><a href="#programas">Catálogo</a></li>
-                    <li><a href="#erasmus">Erasmus+</a></li>
-                    <li><a href="#eventos">Eventos</a></li>
-                </ul>
-            </div>
-            <div>
-                <h2>EduEurope</h2>
-                <ul>
-                    <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
-                    <li><a href="#faq">Preguntas frecuentes</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                </ul>
-            </div>
-            <div>
-                <h2>Síguenos</h2>
-                <ul>
-                    <li><a href="#">LinkedIn</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">YouTube</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; <span data-year>2026</span> EduEurope</p>
-            <ul>
-                <li><a href="#">Aviso legal</a></li>
-                <li><a href="#">Privacidad</a></li>
-                <li><a href="#">Cookies</a></li>
-            </ul>
-        </div>
-        <p class="credits">Fotos de Unsplash:
-            <a href="https://unsplash.com/photos/teacher-lecturing-students-in-a-classroom-setting-14jNrPntbgk">Vitaly Gariev</a>,
-            <a href="https://unsplash.com/photos/people-in-train-station-during-daytime-_N1N9OCB9nA">Simon Tartarotti</a> y
-            <a href="https://unsplash.com/photos/sittin-people-beside-table-inside-room-hCb3lIB8L8E">Annie Spratt</a>.
-        </p>
-    </div>
-</footer>
+<!-- include:footer -->
 
 </body>
 </html>

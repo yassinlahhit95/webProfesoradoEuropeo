@@ -1,3 +1,7 @@
 node_modules
 dist
 .DS_Store
+
+# Páginas generadas desde content/ (se crean solas con npm run dev / build)
+/cursos/
+/blog/
